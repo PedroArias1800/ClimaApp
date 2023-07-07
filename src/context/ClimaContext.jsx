@@ -16,7 +16,7 @@ export const ClimaContext = createContext();
 
 export const ClimaContextProvider = ({children}) => {
 
-    const [icon, setIcon] = useState(faCloud);
+    const [mostrar, setMostrar] = useState(false);
     const [clima, setClima] = useState({
         name: "País",
         main: {
@@ -29,11 +29,10 @@ export const ClimaContextProvider = ({children}) => {
         sys: {
             country: "PP"
         },
-        weather: {
+        weather: [ {
             main: "main",
             description: "description"
-        },
-        icon: ""
+        }]
     });
 
     const CalcularCelsius = (tempNum) => {
@@ -54,27 +53,30 @@ export const ClimaContextProvider = ({children}) => {
         }
       }
 
-    const FindClima = async ( pais ) => {
+    const FindClima = async ( pais = "Panama" ) => {
         const data = await ClimaAppService(pais);
         const resp = await data.json();
-        if(resp.main) {
+        if(data.status === 200 && resp.main) {
             resp.main.feels_like = CalcularCelsius(resp.main.feels_like);
             resp.main.temp_max = CalcularCelsius(resp.main.temp_max);
             resp.main.temp_min = CalcularCelsius(resp.main.temp_min);
             resp.icon = FindIcon(resp.weather[0].main);
+            setClima(resp);
+        } else {
+            setMostrar(true);
+            throw new Error(`Error en la petición: Estatus: ${data.status}. Texto: ${data.statusText}`)
         }
-        setClima(resp);
     }
 
     useEffect(() => {
         const func = async () => {
-            await FindClima("Panama");
+            await FindClima();
         }
 
         func();
     }, [])
 
-    return <ClimaContext.Provider value={{clima, FindClima}}>
+    return <ClimaContext.Provider value={{clima, FindClima, setMostrar}}>
         { children }
     </ClimaContext.Provider>
 }

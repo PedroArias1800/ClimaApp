@@ -2,6 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import { CardClima } from "./CardClima";
 import { useClima } from "../context/ClimaContext";
+import { Alerta } from "./Alerta";
 
 export const MenuClimaApp = () => {
 
@@ -9,6 +10,7 @@ export const MenuClimaApp = () => {
 
   return (
     <div>
+      <Alerta />
       <p>Ingresa el nombre de un país para ver su clima actual</p>
       <Formik
         initialValues={{ pais: "" }}
