@@ -1,5 +1,7 @@
 import React, { useState, useContext, createContext, useEffect } from 'react'
 import { ClimaAppService } from '../service/Service';
+import { faThunderstorm, faCloudSun, faCloudRain, faCloud, faTornado, faUmbrella, faWind, faUmbrellaBeach, faSnowflake } from "@fortawesome/free-solid-svg-icons";
+        /* Thunderstorm, Clear, Rain, Clouds, Dust, Drizzle, Fog, Haze, Mist, Sand, Snow*/
 
 export const useClima = () => {
     const context = useContext(ClimaContext);
@@ -14,6 +16,7 @@ export const ClimaContext = createContext();
 
 export const ClimaContextProvider = ({children}) => {
 
+    const [icon, setIcon] = useState(faCloud);
     const [clima, setClima] = useState({
         name: "País",
         main: {
@@ -29,12 +32,27 @@ export const ClimaContextProvider = ({children}) => {
         weather: {
             main: "main",
             description: "description"
-        }
+        },
+        icon: ""
     });
 
     const CalcularCelsius = (tempNum) => {
         return Math.ceil((tempNum - 273.15) * 100) / 100;
     }
+
+    const FindIcon = (tipo) => {
+        switch(tipo){
+          case "Thunderstorm":          return faThunderstorm;
+          case "Clear":                 return faCloudSun;
+          case "Rain":                  return faCloudRain;
+          case "Clouds":                return faCloud;
+          case "Dust":                  return faTornado;
+          case "Drizzle":               return faUmbrella;
+          case "Fog", "Haze", "Mist":   return faWind;
+          case "Sand":                  return faUmbrellaBeach;
+          case "Snow":                  return faSnowflake;                   
+        }
+      }
 
     const FindClima = async ( pais ) => {
         const data = await ClimaAppService(pais);
@@ -43,6 +61,7 @@ export const ClimaContextProvider = ({children}) => {
             resp.main.feels_like = CalcularCelsius(resp.main.feels_like);
             resp.main.temp_max = CalcularCelsius(resp.main.temp_max);
             resp.main.temp_min = CalcularCelsius(resp.main.temp_min);
+            resp.icon = FindIcon(resp.weather[0].main);
         }
         setClima(resp);
     }

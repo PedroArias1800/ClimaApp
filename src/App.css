@@ -1,0 +1,136 @@
+/* Colores */
+:root{
+    --blanco: #fff;
+    --grisClaro: #d1d1d1;
+    --grisOscuro: #232323;
+    --azul: #3446e8;
+    --azulOscuro: #1022c3;
+    --negro: #000000;
+}
+
+main{
+    width: 100%;
+    height: 90vh;
+    padding: 2vh 0;
+    background-color: var(--grisOscuro);
+    color: var(--blanco);
+}
+h1{
+    margin: 2vh 0;
+}
+h1 svg{
+    color: var(--azul);
+    margin-left: 10px;
+    filter: drop-shadow(0px 0px 25px var(--blanco));
+}
+form{
+    width: 40%;
+    height: 5vh;
+    margin: 8vh auto 4vh auto ;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 4%;
+}
+
+label{
+    width: 100%;
+    display: inline-block;
+}
+label input{
+    width: 100%;
+    grid-area: input;
+    border: 2px solid var(--blanco);
+}
+input{
+    border-radius: 10px;
+    padding: 1.4vh 2%;
+}
+input[type="submit"]{
+    grid-area: btn;
+    padding: 1.4vh 5%;
+    color: var(--blanco);
+    background-color: var(--azul);
+    border: 2px solid var(--azul);
+    transition: .5s;
+    font-weight: bold;
+    cursor: pointer;
+}
+input[type="submit"]:hover{
+    background-color: var(--azulOscuro);
+    border: 2px solid var(--azulOscuro);
+    filter: drop-shadow(0px 0px 25px var(--blanco));
+    transition: .5s;
+}
+
+/* Card del Clima */
+.cardClima{
+    width: 60%;
+    max-width: 650px;
+    min-width: 450px;
+    margin: auto;
+    height: 50vh;
+    padding: 5vh 5vw;
+    background-color: var(--grisClaro);
+    color: var(--negro);
+    border-radius: 20px;
+}
+
+/* Primer Section - Pais Icono*/
+.paisIcon{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.paisIcon svg{
+    height: 100px !important;
+    color: var(--azul);
+    filter: drop-shadow(5px 5px 20px var(--negro));
+}
+
+/* Segundo Section - Detalles */
+.detalles{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2vh 0;
+}
+.detalles h2{
+    font-size: 4rem;
+}
+.detalles div{
+    width: 60%;
+}
+.detalles div div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Tercer Section - Ultimos Detalles */
+.ultimosDetalles{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer{
+    width: 100%;
+    padding: 2.35vh 0;
+    background-color: var(--negro);
+    color: var(--blanco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+footer h2{
+    margin: auto 0;
+}
+
+@media only screen and (max-width: 800px) {
+    form{
+        width: 60%;
+    }
+}
